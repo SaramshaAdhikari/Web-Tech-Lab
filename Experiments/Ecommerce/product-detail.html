@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saramsha - Wool Overcoat</title>
+</head>
+<body>
+    <header>
+        <h1>Saramsha</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <nav aria-label="Breadcrumb">
+            <ol>
+                <li><a href="index.html">Home</a> &gt;</li>
+                <li><a href="products.html">Shop</a> &gt;</li>
+                <li><strong>Wool Overcoat</strong></li>
+            </ol>
+        </nav>
+        <article id="product-detail">
+            <h2>Wool Overcoat</h2>
+            <figure>
+                <img src="images/jacket.jpg" alt="Wool Overcoat" width="400" height="400">
+                <figcaption>Wool Overcoat — Front View</figcaption>
+            </figure>
+            <section id="product-info">
+                <p><code>MON-OC-001</code></p>
+                <p><data value="245"><strong>$245</strong></data></p>
+                <p><meter value="4.7" min="0" max="5">4.7/5</meter> <small>(84 reviews)</small></p>
+                <p><small>In Stock — Ships in <time datetime="P2D">2 days</time></small></p>
+                <form action="cart.html" method="get">
+                    <fieldset>
+                        <legend>Options</legend>
+                        <p>
+                            <label for="size">Size:</label>
+                            <select id="size" name="size" required>
+                                <option value="">Select</option>
+                                <option value="s">S</option>
+                                <option value="m">M</option>
+                                <option value="l">L</option>
+                                <option value="xl">XL</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="color">Color:</label>
+                            <select id="color" name="color" required>
+                                <option value="charcoal">Charcoal</option>
+                                <option value="camel">Camel</option>
+                                <option value="navy">Navy</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="qty">Qty:</label>
+                            <input type="number" id="qty" name="qty" value="1" min="1" max="5">
+                        </p>
+                    </fieldset>
+                    <p><button type="submit">Add to Cart</button></p>
+                </form>
+            </section>
+            <hr>
+            <section>
+                <h3>Description</h3>
+                <p>A tailored overcoat in Italian wool-blend fabric. Notch lapels, two-button closure, and side pockets.</p>
+                <blockquote>
+                    <p>"Exceptional quality and a perfect fit."</p>
+                    <cite>— Style Weekly, <time datetime="2026-01">Jan 2026</time></cite>
+                </blockquote>
+            </section>
+            <hr>
+            <section>
+                <h3>Details</h3>
+                <details>
+                    <summary>Fabric &amp; Care</summary>
+                    <p>70% Wool, 25% Polyester, 5% Cashmere. Dry clean only.</p>
+                </details>
+                <details open>
+                    <summary>Specifications</summary>
+                    <table>
+                        <tbody>
+                            <tr><th scope="row">Material</th><td>Wool blend</td></tr>
+                            <tr><th scope="row">Fit</th><td>Classic</td></tr>
+                            <tr><th scope="row">Length</th><td>Mid-thigh</td></tr>
+                            <tr><th scope="row">Lining</th><td>Full satin lining</td></tr>
+                        </tbody>
+                    </table>
+                </details>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <address>
+            Saramsha &middot; 456 Commerce Ave, Metro City, NY 10001 &middot;
+            <a href="tel:+1-XXX-XXX-XXXX">1-XXX-XXX-XXXX</a>
+        </address>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saramsha - Wool Overcoat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <span>$ (USD)</span>
+            <div><a href="#">Shop Locator</a> <a href="#">Sign In</a></div>
+        </div>
+    </div>
+    <header>
+        <div class="container header-main">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="brand">Saramsha</a>
+            <div class="header-icons">
+                <a href="#">Search</a>
+                <a href="cart.html">Basket</a>
+            </div>
+        </div>
+        <nav aria-label="Main">
+            <ul>
+                <li><a href="products.html">New Arrivals</a></li>
+                <li><a href="products.html">Men's</a></li>
+                <li><a href="products.html">Women's</a></li>
+                <li><a href="products.html">Accessories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <nav aria-label="Breadcrumb">
+                <ol>
+                    <li><a href="index.html">Home</a> &gt;</li>
+                    <li><a href="products.html">Shop</a> &gt;</li>
+                    <li><strong>Wool Overcoat</strong></li>
+                </ol>
+            </nav>
+            <article id="product-detail">
+                <h2>Wool Overcoat</h2>
+                <section id="product-images">
+                    <figure>
+                        <img src="images/jacket.jpg" alt="Wool Overcoat" width="400" height="400">
+                    </figure>
+                </section>
+                <section id="product-info">
+                    <p><code>MON-OC-001</code></p>
+                    <p><data value="245"><strong>$245</strong></data></p>
+                    <p><meter value="4.7" min="0" max="5">4.7/5</meter> <small>(84 reviews)</small></p>
+                    <p><small>In Stock — Ships in <time datetime="P2D">2 days</time></small></p>
+
+                    <form action="cart.html" method="get">
+                        <fieldset>
+                            <legend>Options</legend>
+                            <p>
+                                <label for="size">Size:</label>
+                                <select id="size" name="size" required>
+                                    <option value="">Select</option>
+                                    <option>S</option><option>M</option><option>L</option><option>XL</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="color">Color:</label>
+                                <select id="color" name="color">
+                                    <option>Charcoal</option><option>Camel</option><option>Navy</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="qty">Qty:</label>
+                                <input type="number" id="qty" name="qty" value="1" min="1" max="5">
+                            </p>
+                        </fieldset>
+                        <p><button type="submit">Add to Cart</button></p>
+                    </form>
+                </section>
+                <hr>
+                <section>
+                    <h3>Description</h3>
+                    <p>A tailored overcoat in Italian wool-blend. Notch lapels, two-button closure, side pockets.</p>
+                    <blockquote>
+                        <p>"Exceptional quality and a perfect fit."</p>
+                        <cite>— Style Weekly, <time datetime="2026-01">Jan 2026</time></cite>
+                    </blockquote>
+                </section>
+                <hr>
+                <section>
+                    <h3>Details</h3>
+                    <details>
+                        <summary>Fabric &amp; Care</summary>
+                        <p>70% Wool, 25% Polyester, 5% Cashmere. Dry clean only.</p>
+                    </details>
+                    <details open>
+                        <summary>Specifications</summary>
+                        <table>
+                            <tbody>
+                                <tr><th scope="row">Material</th><td>Wool blend</td></tr>
+                                <tr><th scope="row">Fit</th><td>Classic</td></tr>
+                                <tr><th scope="row">Length</th><td>Mid-thigh</td></tr>
+                                <tr><th scope="row">Lining</th><td>Full satin</td></tr>
+                            </tbody>
+                        </table>
+                    </details>
+                </section>
+            </article>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <address>
+                Saramsha &middot; 456 Commerce Ave, Metro City, NY 10001 &middot;
+                <a href="tel:+1-XXX-XXX-XXXX">1-XXX-XXX-XXXX</a>
+            </address>
+        </div>
+    </footer>
+</body>
+</html>

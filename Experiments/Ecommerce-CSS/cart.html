@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saramsha - Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <span>$ (USD)</span>
+            <div><a href="#">Shop Locator</a> <a href="#">Sign In</a></div>
+        </div>
+    </div>
+    <header>
+        <div class="container header-main">
+            <div class="header-spacer"></div>
+            <a href="index.html" class="brand">Saramsha</a>
+            <div class="header-icons">
+                <a href="#">Search</a>
+                <a href="cart.html" class="active">Basket</a>
+            </div>
+        </div>
+        <nav aria-label="Main">
+            <ul>
+                <li><a href="products.html">New Arrivals</a></li>
+                <li><a href="products.html">Men's</a></li>
+                <li><a href="products.html">Women's</a></li>
+                <li><a href="products.html">Accessories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Your Cart</h2>
+            <p><strong>2 items</strong> in your cart.</p>
+            <section id="cart-items">
+                <table>
+                    <thead>
+                        <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="product-detail.html">Wool Overcoat</a><br><small>M, Charcoal</small></td>
+                            <td><data value="245">$245</data></td>
+                            <td><input type="number" value="1" min="1" max="5" aria-label="Quantity"></td>
+                            <td><data value="245"><strong>$245</strong></data></td>
+                        </tr>
+                        <tr>
+                            <td><a href="products.html">Linen Shirt</a><br><small>L, Off-White</small></td>
+                            <td><data value="85">$85</data></td>
+                            <td><input type="number" value="2" min="1" max="10" aria-label="Quantity"></td>
+                            <td><data value="170"><strong>$170</strong></data></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>Total</strong></td>
+                            <td><data value="415"><strong>$415</strong></data></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+            <hr>
+            <aside id="cart-summary">
+                <h3>Order Summary</h3>
+                <table>
+                    <tbody>
+                        <tr><td>Subtotal</td><td><data value="415">$415</data></td></tr>
+                        <tr><td>Shipping</td><td><data value="0">Free</data></td></tr>
+                        <tr><td>Tax</td><td><data value="35.28">$35.28</data></td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td><strong>Total</strong></td><td><data value="450.28"><strong>$450.28</strong></data></td></tr>
+                    </tfoot>
+                </table>
+                <p><a href="checkout.html">Proceed to Checkout</a></p>
+                <p><a href="products.html">Continue Shopping</a></p>
+            </aside>
+            <hr>
+            <section id="payment-methods">
+                <h3>We Accept</h3>
+                <p>Visa &middot; Mastercard &middot; PayPal &middot; Apple Pay &middot; Google Pay</p>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <address>
+                Saramsha &middot; 456 Commerce Ave, Metro City, NY 10001 &middot;
+                <a href="tel:+1-XXX-XXX-XXXX">1-XXX-XXX-XXXX</a>
+            </address>
+        </div>
+    </footer>
+</body>
+</html>

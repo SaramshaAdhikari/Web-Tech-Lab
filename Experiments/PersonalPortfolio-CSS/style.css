@@ -1,0 +1,115 @@
+/* Saramsha Portfolio — Dark Green Theme */
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    line-height: 1.7;
+    color: #f0f0f0;
+    background: #111;
+    position: relative;
+    min-height: 100vh;
+}
+/* Background image */
+body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('blazingtapestry.jpg') center/cover no-repeat;
+    z-index: -2;
+}
+body::after {
+    content: '';
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+/* Typography */
+h1 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
+h3 { font-size: 1.1rem; font-weight: 600; color: #e8e8e8; margin-bottom: 8px; }
+p { margin-bottom: 12px; color: #ddd; }
+a { color: #81c784; text-decoration: none; }
+a:hover { text-decoration: underline; color: #a5d6a7; }
+/* Navbar */
+.navbar { background: rgba(20,20,20,0.9); }
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.3rem; font-weight: 700; color: #c8e6c9; padding: 14px 0; }
+.logo span { color: #81c784; }
+.nav-links { list-style: none; display: flex; gap: 4px; }
+.nav-links a {
+    display: block; color: #b0c4b1; font-weight: 600; font-size: 0.9rem;
+    padding: 16px 14px; text-decoration: none;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: #4a7c59; }
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, rgba(20,20,20,0.6), rgba(30,50,35,0.5), rgba(50,80,55,0.4));
+    padding: 50px 0;
+}
+.hero h1 { margin-bottom: 12px; }
+.hero p { color: #d0e8d2; font-size: 1.05rem; max-width: 500px; }
+.hero-buttons { display: flex; gap: 12px; margin-top: 14px; }
+/* Profile row (about page) */
+.profile-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.profile-row img { flex-shrink: 0; }
+/* Buttons */
+.btn {
+    display: inline-block; padding: 10px 24px; font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: linear-gradient(135deg, #4a7c59, #81c784); color: #fff; }
+.btn-primary:hover { background: linear-gradient(135deg, #3b6347, #6db86f); }
+.btn-secondary { background: transparent; color: #c8e6c9; border: 2px solid #81c784; padding: 8px 22px; }
+.btn-secondary:hover { background: #81c784; color: #2d3a2e; }
+/* Sections */
+.section { padding: 50px 0; }
+.section-alt { background: rgba(40,50,40,0.6); }
+/* Card grid */
+.card-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+.card {
+    flex: 1; min-width: 220px; background: rgba(255,255,255,0.08);
+    padding: 24px;
+}
+.card h3 { margin-bottom: 8px; }
+.card p { color: #bbb; margin-bottom: 0; }
+.card ul { margin: 8px 0 0 20px; }
+.card li { color: #ccc; margin-bottom: 6px; }
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; background: rgba(255,255,255,0.06); }
+th, td { padding: 10px 16px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); color: #ddd; }
+th { background: rgba(20,20,20,0.7); color: #fff; font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+/* Contact layout */
+.contact-layout { display: flex; gap: 36px; flex-wrap: wrap; }
+.contact-main { flex: 1; min-width: 280px; }
+.contact-sidebar { flex: 0 0 280px; min-width: 240px; }
+/* Forms */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 4px; color: #ddd; }
+input[type="text"], input[type="email"], select, textarea {
+    width: 100%; max-width: 500px; padding: 9px 12px; font-family: inherit;
+    font-size: 0.95rem; color: #f0f0f0; background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.15);
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: #81c784; background: rgba(255,255,255,0.12); }
+address { font-style: normal; line-height: 1.8; color: #ccc; }
+/* Footer */
+.footer { background: rgba(10,10,10,0.85); padding: 20px 0; text-align: center; }
+.footer p { color: #8fa890; margin: 0; }
+/* Utilities */
+.text-center { text-align: center; }
+.text-muted { color: #a0b0a2; }
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar .container { flex-direction: column; gap: 0; }
+    .nav-links { justify-content: center; flex-wrap: wrap; }
+    .nav-links a { padding: 10px 12px; font-size: 0.8rem; }
+    .hero { padding: 36px 0; }
+    .hero h1 { font-size: 1.6rem; }
+    .profile-row { flex-direction: column; text-align: center; }
+    .card-grid { flex-direction: column; }
+    .contact-layout { flex-direction: column; }
+    .contact-sidebar { flex: auto; }
+    input[type="text"], input[type="email"], select, textarea { max-width: 100%; }
+}

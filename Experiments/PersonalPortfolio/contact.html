@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saramsha - Contact</title>
+</head>
+<body>
+    <header>
+        <h1>Saramsha's Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Contact</h2>
+        <p>Send me a message.</p>
+        <hr>
+        <section id="contact-form">
+            <h3>Send a Message</h3>
+            <form action="#" method="post">
+                <label for="name"><b>Name:</b></label><br>
+                <input type="text" id="name" name="name" placeholder="Your name" required><br><br>
+                <label for="email"><b>Email:</b></label><br>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required><br><br>
+                <label for="subject"><b>Subject:</b></label><br>
+                <select id="subject" name="subject">
+                    <option value="general">General</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Other</option>
+                </select><br><br>
+                <label for="message"><b>Message:</b></label><br>
+                <textarea id="message" name="message" rows="6" cols="40" placeholder="Write your message here..." required></textarea><br><br>
+                <button type="submit">Send</button>
+                <button type="reset">Clear</button>
+            </form>
+        </section>
+        <hr>
+        <section id="contact-info">
+            <h3>Other Ways to Reach Me</h3>
+            <table>
+                <tr>
+                    <th>Channel</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><a href="mailto:saramsha@example.com">saramsha@example.com</a></td>
+                </tr>
+                <tr>
+                    <td>GitHub</td>
+                    <td><a href="https://github.com/" target="_blank">github.com/saramsha</a></td>
+                </tr>
+                <tr>
+                    <td>LinkedIn</td>
+                    <td><a href="https://linkedin.com/" target="_blank">linkedin.com/in/saramsha</a></td>
+                </tr>
+            </table>
+        </section>
+        <section id="location">
+            <h3>Location</h3>
+            <address>
+                <p>Saramsha<br>
+                Web Technology Student<br>
+                Available Online</p>
+            </address>
+        </section>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

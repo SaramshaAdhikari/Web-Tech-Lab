@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saramsha - Checkout</title>
+</head>
+<body>
+    <header>
+        <h1>Saramsha</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Checkout</h2>
+        <section id="progress">
+            <progress value="1" max="3">Step 1 of 3</progress>
+            <ol>
+                <li><mark>Shipping</mark></li>
+                <li>Payment</li>
+                <li>Confirm</li>
+            </ol>
+        </section>
+        <hr>
+        <form action="#" method="post">
+            <fieldset>
+                <legend>Contact</legend>
+                <p>
+                    <label for="email">Email <abbr title="required">*</abbr></label><br>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com">
+                </p>
+                <p>
+                    <label for="phone">Phone <abbr title="required">*</abbr></label><br>
+                    <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Shipping</legend>
+                <p>
+                    <label for="name">Full Name <abbr title="required">*</abbr></label><br>
+                    <input type="text" id="name" name="name" required>
+                </p>
+                <p>
+                    <label for="address">Address <abbr title="required">*</abbr></label><br>
+                    <input type="text" id="address" name="address" required>
+                </p>
+                <p>
+                    <label for="city">City <abbr title="required">*</abbr></label><br>
+                    <input type="text" id="city" name="city" required>
+                </p>
+                <p>
+                    <label for="state">State <abbr title="required">*</abbr></label><br>
+                    <select id="state" name="state" required>
+                        <option value="">Select</option>
+                        <optgroup label="US">
+                            <option value="NY">New York</option>
+                            <option value="CA">California</option>
+                            <option value="TX">Texas</option>
+                        </optgroup>
+                    </select>
+                </p>
+                <p>
+                    <label for="zip">ZIP <abbr title="required">*</abbr></label><br>
+                    <input type="text" id="zip" name="zip" required pattern="[0-9]{5}">
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Shipping Method</legend>
+                <p>
+                    <input type="radio" id="standard" name="ship" value="standard" checked>
+                    <label for="standard">Standard — Free (<time datetime="P7D">5–7 days</time>)</label>
+                </p>
+                <p>
+                    <input type="radio" id="express" name="ship" value="express">
+                    <label for="express">Express — $9.99 (<time datetime="P3D">2–3 days</time>)</label>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Payment</legend>
+                <p>
+                    <input type="radio" id="card" name="pay" value="card" checked>
+                    <label for="card">Credit Card</label>
+                </p>
+                <p>
+                    <input type="radio" id="paypal" name="pay" value="paypal">
+                    <label for="paypal">PayPal</label>
+                </p>
+                <p>
+                    <input type="radio" id="gpay" name="pay" value="gpay">
+                    <label for="gpay">Google Pay</label>
+                </p>
+                <p>
+                    <label for="card-num">Card Number:</label><br>
+                    <input type="text" id="card-num" name="card_num" placeholder="1234 5678 9012 3456" inputmode="numeric">
+                </p>
+                <p>
+                    <label for="expiry">Expiry:</label>
+                    <input type="month" id="expiry" name="expiry" min="2026-02">
+                    <label for="cvv"><abbr title="Card Verification Value">CVV</abbr>:</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" inputmode="numeric">
+                </p>
+            </fieldset>
+            <hr>
+            <section id="order-review">
+                <h3>Order Review</h3>
+                <table>
+                    <thead>
+                        <tr><th>Item</th><th>Qty</th><th>Price</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Wool Overcoat</td><td>1</td><td><data value="245">$245</data></td></tr>
+                        <tr><td>Linen Shirt</td><td>2</td><td><data value="170">$170</data></td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td colspan="2"><strong>Total</strong></td><td><data value="450.28"><strong>$450.28</strong></data></td></tr>
+                    </tfoot>
+                </table>
+                <p><a href="cart.html">Edit Cart</a></p>
+            </section>
+            <hr>
+            <p>
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</label>
+            </p>
+            <p><button type="submit">Place Order — $450.28</button></p>
+        </form>
+        <hr>
+        <section id="faq">
+            <h3>FAQ</h3>
+            <details>
+                <summary>When will my order ship?</summary>
+                <p>Orders placed before 2 PM ship the same day.</p>
+            </details>
+            <details>
+                <summary>What is your return policy?</summary>
+                <p>30-day returns on unworn items with tags.</p>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <address>
+            Saramsha &middot; 456 Commerce Ave, Metro City, NY 10001 &middot;
+            <a href="tel:+1-XXX-XXX-XXXX">1-XXX-XXX-XXXX</a>
+        </address>
+    </footer>
+</body>
+</html>
