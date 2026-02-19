@@ -47,21 +47,14 @@
             transform: translateY(-4px); border-color: rgba(129,199,132,0.3);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(74,156,110,0.08);
         }
-        .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; }
-        .card:nth-child(1)::before { background: linear-gradient(90deg, #4a9e6e, #81c784); }
-        .card:nth-child(2)::before { background: linear-gradient(90deg, #81c784, #4ade80); }
-        .card:nth-child(3)::before { background: linear-gradient(90deg, #2196f3, #42a5f5); }
-        .card:nth-child(4)::before { background: linear-gradient(90deg, #42a5f5, #64b5f6); }
+        .card::before { display: none; }
         .card-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.2rem; }
         .card-number {
             flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem; font-weight: 800; color: #fff;
         }
-        .card:nth-child(1) .card-number { background: linear-gradient(135deg, #2d6e4a, #4a9e6e); }
-        .card:nth-child(2) .card-number { background: linear-gradient(135deg, #4a9e6e, #81c784); }
-        .card:nth-child(3) .card-number { background: linear-gradient(135deg, #1565c0, #2196f3); }
-        .card:nth-child(4) .card-number { background: linear-gradient(135deg, #2196f3, #42a5f5); }
+        .card .card-number { background: rgba(255,255,255,0.08); }
         .card-title-group h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
         .card-title-group .subtitle { font-size: 0.85rem; color: #71717a; font-weight: 500; }
         .card-description { color: #a1a1aa; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
@@ -159,9 +152,6 @@
                 <div class="tags">
                     <span class="tag tag-html">HTML</span>
                     <span class="tag tag-css">CSS</span>
-                    <span class="tag tag-inline">Inline CSS</span>
-                    <span class="tag tag-internal">Internal CSS</span>
-                    <span class="tag tag-external">External CSS</span>
                 </div>
                 <a href="Experiments/PersonalPortfolio-CSS/index.html" class="btn-open">
                     Open Experiment <span class="arrow">&rarr;</span>
@@ -180,9 +170,6 @@
                 <div class="tags">
                     <span class="tag tag-html">HTML</span>
                     <span class="tag tag-css">CSS</span>
-                    <span class="tag tag-inline">Inline CSS</span>
-                    <span class="tag tag-internal">Internal CSS</span>
-                    <span class="tag tag-external">External CSS</span>
                 </div>
                 <a href="Experiments/Ecommerce-CSS/index.html" class="btn-open">
                     Open Experiment <span class="arrow">&rarr;</span>
