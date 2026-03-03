@@ -152,6 +152,38 @@ button:active{transform:scale(.97)}
 }
 .btn-danger:hover{background:#fecaca}
 
+/* Validation states */
+.field-msg{
+  display:block;
+  font-size:.8rem;
+  font-weight:500;
+  margin-top:5px;
+  min-height:1em;
+}
+
+.field.is-error input,
+.field.is-error textarea,
+.field.is-error select{
+  border-color:#ef4444;
+  box-shadow:0 0 0 3px rgba(239,68,68,.15);
+}
+.field.is-error .field-msg{color:#dc2626}
+
+.field.is-ok input,
+.field.is-ok textarea,
+.field.is-ok select{
+  border-color:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.12);
+}
+.field.is-ok .field-msg{color:#16a34a}
+
+/* Password hint label */
+.hint{
+  font-weight:400;
+  color:#94a3b8;
+  font-size:.8rem;
+}
+
 /* Output panel */
 #output{
   margin-top:20px;

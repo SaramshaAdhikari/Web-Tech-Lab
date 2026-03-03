@@ -21,9 +21,16 @@
         <input id="email" name="email" type="email" placeholder="a@example.com" />
       </div>
 
-      <div class="field">
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
+      <div class="field" id="field-password">
+        <label for="password">Password <span class="hint">(min 8 characters)</span></label>
+        <input id="password" name="password" type="password" autocomplete="new-password" />
+        <span class="field-msg" id="msg-password"></span>
+      </div>
+
+      <div class="field" id="field-confirm">
+        <label for="confirm">Confirm Password</label>
+        <input id="confirm" name="confirm" type="password" autocomplete="new-password" />
+        <span class="field-msg" id="msg-confirm"></span>
       </div>
 
       <div class="row">
