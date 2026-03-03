@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Textfield Form</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Form</h1>
+
+    <form id="sampleForm">
+      <div class="field">
+        <label for="fullname">Full Name</label>
+        <input id="fullname" name="fullname" type="text" placeholder="Full Name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="a@example.com" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" min="0" max="120" placeholder="20" />
+        </div>
+        <div class="field">
+          <label for="birthday">Birthday</label>
+          <input id="birthday" name="birthday" type="date" />
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:20px">
+        <label for="bio">Bio</label>
+        <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="range">Satisfaction</label>
+        <div class="satisfaction-row">
+          <input id="range" name="satisfaction" type="range" min="0" max="10" value="7" />
+          <input id="satNumber" name="satisfactionNumber" type="number" min="0" max="10" value="7" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Gender</label>
+        <div class="choice-group">
+          <label><input type="radio" name="gender" value="female" /> Female</label>
+          <label><input type="radio" name="gender" value="male" /> Male</label>
+          <label><input type="radio" name="gender" value="other" checked /> Other</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Interests</label>
+        <div class="choice-group">
+          <label><input type="checkbox" name="interests" value="coding" /> Coding</label>
+          <label><input type="checkbox" name="interests" value="music" /> Music</label>
+          <label><input type="checkbox" name="interests" value="sports" /> Sports</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="">(choose)</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+          <option>Australia</option>
+          <option>Nepal</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-primary">Submit</button>
+        <button type="reset" class="btn-secondary">Reset</button>
+        <button type="button" id="clearOutput" class="btn-danger">Clear Output</button>
+      </div>
+    </form>
+
+    <div id="output" aria-live="polite">Submit the form to see printed values here.</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
