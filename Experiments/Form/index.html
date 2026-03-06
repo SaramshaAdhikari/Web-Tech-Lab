@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Textfield Form</title>
+  <title>Form</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -91,11 +91,33 @@
       <div class="btn-row">
         <button type="submit" class="btn-primary">Submit</button>
         <button type="reset" class="btn-secondary">Reset</button>
-        <button type="button" id="clearOutput" class="btn-danger">Clear Output</button>
       </div>
     </form>
 
-    <div id="output" aria-live="polite">Submit the form to see printed values here.</div>
+    <div id="output" style="display:none">
+      <div class="table-btns">
+        <button type="button" id="copyCSV"   class="btn-secondary btn-sm">Copy CSV</button>
+        <button type="button" id="exportCSV" class="btn-secondary btn-sm">Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table id="outputTable">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Birthday</th>
+              <th>Bio</th>
+              <th>Satisfaction</th>
+              <th>Gender</th>
+              <th>Interests</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
