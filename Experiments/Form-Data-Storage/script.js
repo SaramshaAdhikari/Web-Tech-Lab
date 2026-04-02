@@ -1,28 +1,77 @@
-const FORM_STORAGE_KEY = 'exercise10-form-entries';
+const FORM_STORAGE_KEY = 'form-data-storage-entries';
 
-const form = document.getElementById('storageForm');
-const clearAllBtn = document.getElementById('clearAll');
-const tableBody = document.getElementById('entryTableBody');
+const slider = document.getElementById('range');
+const satNum = document.getElementById('satNumber');
 
-const fields = {
-  fullName: document.getElementById('fullName'),
-  email: document.getElementById('email'),
-  age: document.getElementById('age'),
-  country: document.getElementById('country')
-};
+slider.addEventListener('input', () => { satNum.value = slider.value; });
+satNum.addEventListener('input', () => {
+  satNum.value = Math.min(10, Math.max(0, Number(satNum.value)));
+  slider.value = satNum.value;
+});
 
-const errors = {
-  fullName: document.getElementById('err-fullName'),
-  email: document.getElementById('err-email'),
-  age: document.getElementById('err-age'),
-  country: document.getElementById('err-country')
-};
+const form = document.getElementById('sampleForm');
+const passwordInput = document.getElementById('password');
+const confirmInput = document.getElementById('confirm');
+const fieldPassword = document.getElementById('field-password');
+const fieldConfirm = document.getElementById('field-confirm');
+const msgPassword = document.getElementById('msg-password');
+const msgConfirm = document.getElementById('msg-confirm');
+const clearAllButton = document.getElementById('clearAll');
+const output = document.getElementById('output');
+const tableBody = document.getElementById('tableBody');
+
+const COLUMNS = [
+  { key: 'fullname', label: 'Full Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'age', label: 'Age' },
+  { key: 'birthday', label: 'Birthday' },
+  { key: 'bio', label: 'Bio' },
+  { key: 'satisfaction', label: 'Satisfaction' },
+  { key: 'gender', label: 'Gender' },
+  { key: 'interests', label: 'Interests' },
+  { key: 'country', label: 'Country' }
+];
+
+function setFieldState(fieldEl, msgEl, isOk, message) {
+  fieldEl.classList.toggle('is-ok', isOk && message !== '');
+  fieldEl.classList.toggle('is-error', !isOk && message !== '');
+  msgEl.textContent = message;
+}
+
+function validatePassword() {
+  const val = passwordInput.value;
+  if (val === '') { setFieldState(fieldPassword, msgPassword, false, ''); return false; }
+  if (val.length < 8) {
+    setFieldState(fieldPassword, msgPassword, false, 'Password must be at least 8 characters.');
+    return false;
+  }
+  setFieldState(fieldPassword, msgPassword, true, 'Looks good!');
+  return true;
+}
+
+function validateConfirm() {
+  const val = confirmInput.value;
+  if (val === '') { setFieldState(fieldConfirm, msgConfirm, false, ''); return false; }
+  if (val !== passwordInput.value) {
+    setFieldState(fieldConfirm, msgConfirm, false, 'Passwords do not match.');
+    return false;
+  }
+  setFieldState(fieldConfirm, msgConfirm, true, 'Passwords match!');
+  return true;
+}
+
+passwordInput.addEventListener('input', () => {
+  validatePassword();
+  if (confirmInput.value !== '') validateConfirm();
+});
+
+confirmInput.addEventListener('input', validateConfirm);
 
 function getEntries() {
   try {
     const raw = localStorage.getItem(FORM_STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
-  } catch (error) {
+  } catch (_error) {
     return [];
   }
 }
@@ -31,103 +80,86 @@ function saveEntries(entries) {
   localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(entries));
 }
 
-function clearErrors() {
-  Object.values(errors).forEach(node => {
-    node.textContent = '';
-  });
-}
-
-function validate() {
-  clearErrors();
-  let valid = true;
-
-  const fullName = fields.fullName.value.trim();
-  const email = fields.email.value.trim();
-  const age = Number(fields.age.value);
-  const country = fields.country.value.trim();
-
-  if (fullName.length < 2) {
-    errors.fullName.textContent = 'Name must be at least 2 characters.';
-    valid = false;
-  }
-
-  if (!/^\S+@\S+\.\S+$/.test(email)) {
-    errors.email.textContent = 'Enter a valid email address.';
-    valid = false;
-  }
-
-  if (!Number.isInteger(age) || age < 1 || age > 120) {
-    errors.age.textContent = 'Age must be between 1 and 120.';
-    valid = false;
-  }
-
-  if (country.length < 2) {
-    errors.country.textContent = 'Country must be at least 2 characters.';
-    valid = false;
-  }
-
-  return valid;
-}
-
-function renderEntries() {
+function renderTable() {
   const entries = getEntries();
   tableBody.innerHTML = '';
 
   if (entries.length === 0) {
-    const row = document.createElement('tr');
-    row.innerHTML = '<td colspan="6">No entries saved yet.</td>';
-    tableBody.appendChild(row);
+    output.style.display = 'none';
     return;
   }
 
-  entries.forEach(entry => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${entry.fullName}</td>
-      <td>${entry.email}</td>
-      <td>${entry.age}</td>
-      <td>${entry.country}</td>
-      <td>${entry.createdAt}</td>
-      <td><button type="button" class="delete-btn" data-id="${entry.id}">Delete</button></td>
-    `;
-    tableBody.appendChild(row);
+  entries.forEach((entry, index) => {
+    const tr = document.createElement('tr');
+
+    COLUMNS.forEach(col => {
+      const td = document.createElement('td');
+      td.textContent = entry[col.key] ?? '';
+      tr.appendChild(td);
+    });
+
+    const createdAtTd = document.createElement('td');
+    createdAtTd.textContent = entry.createdAt;
+    tr.appendChild(createdAtTd);
+
+    const actionTd = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.className = 'btn-danger btn-sm';
+    deleteButton.textContent = 'Delete';
+    deleteButton.dataset.index = String(index);
+    actionTd.appendChild(deleteButton);
+    tr.appendChild(actionTd);
+
+    tableBody.appendChild(tr);
   });
+
+  output.style.display = 'block';
 }
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  if (!validate()) return;
 
-  const entries = getEntries();
-  entries.push({
-    id: Date.now(),
-    fullName: fields.fullName.value.trim(),
-    email: fields.email.value.trim(),
-    age: Number(fields.age.value),
-    country: fields.country.value.trim(),
+  if (!validatePassword() || !validateConfirm()) return;
+
+  const fd = new FormData(form);
+  const map = {};
+  for (const [key, value] of fd.entries()) {
+    if (!map[key]) map[key] = [];
+    map[key].push(value);
+  }
+
+  const entry = {
     createdAt: new Date().toLocaleString()
+  };
+
+  COLUMNS.forEach(col => {
+    const vals = map[col.key];
+    entry[col.key] = vals ? vals.join(', ') : '';
   });
 
+  const entries = getEntries();
+  entries.push(entry);
   saveEntries(entries);
-  form.reset();
-  renderEntries();
+  renderTable();
 });
 
 tableBody.addEventListener('click', event => {
   const target = event.target;
   if (!(target instanceof HTMLButtonElement)) return;
-  const entryId = Number(target.dataset.id);
 
-  if (!entryId) return;
+  const idx = Number(target.dataset.index);
+  if (Number.isNaN(idx)) return;
 
-  const entries = getEntries().filter(entry => entry.id !== entryId);
+  const entries = getEntries();
+  entries.splice(idx, 1);
   saveEntries(entries);
-  renderEntries();
+  renderTable();
 });
 
-clearAllBtn.addEventListener('click', () => {
+clearAllButton.addEventListener('click', () => {
   localStorage.removeItem(FORM_STORAGE_KEY);
-  renderEntries();
+  renderTable();
 });
 
-renderEntries();
+renderTable();

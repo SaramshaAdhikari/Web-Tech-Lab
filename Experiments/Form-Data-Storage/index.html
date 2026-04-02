@@ -1,66 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exercise 10 - localStorage Data Handling</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Form Data Storage</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
-    <h1>Exercise 10: Data Storage Simulation</h1>
-    <p>Form submissions are stored in localStorage and displayed in the table below.</p>
+  <div class="wrapper">
+    <h1>Form Data Storage</h1>
 
-    <form id="storageForm" novalidate>
-      <div class="grid">
-        <div class="field">
-          <label for="fullName">Full Name</label>
-          <input id="fullName" name="fullName" type="text" required>
-          <small class="error" id="err-fullName"></small>
-        </div>
+    <form id="sampleForm" novalidate>
+      <div class="field">
+        <label for="fullname">Full Name</label>
+        <input id="fullname" name="fullname" type="text" placeholder="Full Name" required />
+      </div>
 
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required>
-          <small class="error" id="err-email"></small>
-        </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="a@example.com" />
+      </div>
 
+      <div class="field" id="field-password">
+        <label for="password">Password <span class="hint">(min 8 characters)</span></label>
+        <input id="password" name="password" type="password" autocomplete="new-password" />
+        <span class="field-msg" id="msg-password"></span>
+      </div>
+
+      <div class="field" id="field-confirm">
+        <label for="confirm">Confirm Password</label>
+        <input id="confirm" name="confirm" type="password" autocomplete="new-password" />
+        <span class="field-msg" id="msg-confirm"></span>
+      </div>
+
+      <div class="row">
         <div class="field">
           <label for="age">Age</label>
-          <input id="age" name="age" type="number" min="1" max="120" required>
-          <small class="error" id="err-age"></small>
+          <input id="age" name="age" type="number" min="0" max="120" placeholder="20" />
         </div>
-
         <div class="field">
-          <label for="country">Country</label>
-          <input id="country" name="country" type="text" required>
-          <small class="error" id="err-country"></small>
+          <label for="birthday">Birthday</label>
+          <input id="birthday" name="birthday" type="date" />
         </div>
       </div>
 
-      <div class="actions">
-        <button type="submit">Save Entry</button>
-        <button type="button" id="clearAll" class="secondary">Clear All Data</button>
+      <div class="field" style="margin-top:20px">
+        <label for="bio">Bio</label>
+        <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="range">Satisfaction</label>
+        <div class="satisfaction-row">
+          <input id="range" name="satisfaction" type="range" min="0" max="10" value="7" />
+          <input id="satNumber" name="satisfactionNumber" type="number" min="0" max="10" value="7" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Gender</label>
+        <div class="choice-group">
+          <label><input type="radio" name="gender" value="female" /> Female</label>
+          <label><input type="radio" name="gender" value="male" /> Male</label>
+          <label><input type="radio" name="gender" value="other" checked /> Other</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Interests</label>
+        <div class="choice-group">
+          <label><input type="checkbox" name="interests" value="coding" /> Coding</label>
+          <label><input type="checkbox" name="interests" value="music" /> Music</label>
+          <label><input type="checkbox" name="interests" value="sports" /> Sports</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="">(choose)</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+          <option>Australia</option>
+          <option>Nepal</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-primary">Submit</button>
+        <button type="reset" class="btn-secondary">Reset</button>
       </div>
     </form>
 
-    <section class="table-section">
-      <h2>Saved Entries</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Country</th>
-            <th>Created At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="entryTableBody"></tbody>
-      </table>
-    </section>
-  </main>
+    <div id="output" style="display:none">
+      <div class="table-btns">
+        <button type="button" id="clearAll" class="btn-secondary btn-sm">Clear All Data</button>
+      </div>
+      <div class="table-wrap">
+        <table id="outputTable">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Birthday</th>
+              <th>Bio</th>
+              <th>Satisfaction</th>
+              <th>Gender</th>
+              <th>Interests</th>
+              <th>Country</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

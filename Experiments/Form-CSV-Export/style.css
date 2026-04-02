@@ -67,9 +67,11 @@ input:focus,textarea:focus,select:focus{
 
 textarea{resize:vertical;min-height:80px}
 
+/* Row helpers */
 .row{display:flex;gap:12px;align-items:end}
 .row .field{flex:1;margin-bottom:0}
 
+/* Satisfaction slider + number */
 .satisfaction-row{
   display:flex;
   align-items:center;
@@ -87,6 +89,7 @@ textarea{resize:vertical;min-height:80px}
   flex-shrink:0;
 }
 
+/* Radio & checkbox groups */
 .choice-group{
   display:flex;
   flex-wrap:wrap;
@@ -111,6 +114,7 @@ textarea{resize:vertical;min-height:80px}
 }
 .choice-group input{accent-color:#6366f1}
 
+/* Buttons */
 .btn-row{
   display:flex;
   gap:10px;
@@ -142,6 +146,13 @@ button:active{transform:scale(.97)}
 }
 .btn-secondary:hover{background:#cbd5e1}
 
+.btn-danger{
+  background:#fee2e2;
+  color:#dc2626;
+}
+.btn-danger:hover{background:#fecaca}
+
+/* Validation states */
 .field-msg{
   display:block;
   font-size:.8rem;
@@ -166,12 +177,14 @@ button:active{transform:scale(.97)}
 }
 .field.is-ok .field-msg{color:#16a34a}
 
+/* Password hint label */
 .hint{
   font-weight:400;
   color:#94a3b8;
   font-size:.8rem;
 }
 
+/* Output table */
 #output{
   margin-top:24px;
 }
@@ -222,6 +235,7 @@ button:active{transform:scale(.97)}
 
 #outputTable tbody tr:hover td{background:#f8fafc}
 
+/* Small-screen stacking */
 @media(max-width:480px){
   .row{flex-direction:column;align-items:stretch}
   .btn-row{flex-direction:column}

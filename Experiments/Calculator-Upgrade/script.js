@@ -1,181 +1,211 @@
-const app = document.querySelector('.app');
-const displayEl = document.getElementById('display');
-const errorStatusEl = document.getElementById('errorStatus');
-const memoryStatusEl = document.getElementById('memoryStatus');
-const keypad = document.getElementById('keypad');
-const historyList = document.getElementById('historyList');
-const clearHistoryBtn = document.getElementById('clearHistory');
-const themeToggleBtn = document.getElementById('themeToggle');
+(function () {
+    const app = document.getElementById('app');
+    const screen = document.querySelector('.screen');
+    const keypad = document.getElementById('keypad');
+    const historyList = document.getElementById('historyList');
+    const clearHistoryBtn = document.getElementById('clearHistory');
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const memoryStatus = document.getElementById('memoryStatus');
+    const errorStatus = document.getElementById('errorStatus');
 
-let expression = '';
-let memoryValue = 0;
-let history = [];
+    let display = document.getElementById('display');
+    if (!display) {
+        display = document.createElement('div');
+        display.id = 'display';
+        screen.appendChild(display);
+    }
 
-function setError(message) {
-  errorStatusEl.textContent = message;
-}
+    let expr = '';
+    let memoryValue = 0;
+    let history = [];
 
-function updateDisplay(value = expression || '0') {
-  displayEl.textContent = value;
-}
+    function setError(message) {
+        errorStatus.textContent = message;
+    }
 
-function updateMemory() {
-  memoryStatusEl.textContent = `M: ${memoryValue}`;
-}
+    function updateDisplay(value) {
+        display.textContent = value || expr || '0';
+    }
 
-function renderHistory() {
-  historyList.innerHTML = '';
-  if (history.length === 0) {
-    const li = document.createElement('li');
-    li.textContent = 'No calculations yet.';
-    historyList.appendChild(li);
-    return;
-  }
-  history.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.expr} = ${item.result}`;
-    historyList.appendChild(li);
-  });
-}
+    function updateMemory() {
+        memoryStatus.textContent = 'M: ' + memoryValue;
+    }
 
-function safeEval(expr) {
-  const normalized = expr.replace(/%/g, '/100');
-  if (!/^[0-9+\-*/().\s]+$/.test(normalized)) {
-    throw new Error('Invalid characters in expression.');
-  }
-  const result = Function(`"use strict"; return (${normalized})`)();
-  if (!Number.isFinite(result)) {
-    throw new Error('Math error.');
-  }
-  return result;
-}
+    function renderHistory() {
+        historyList.innerHTML = '';
+        if (history.length === 0) {
+            const empty = document.createElement('li');
+            empty.textContent = 'No calculations yet.';
+            historyList.appendChild(empty);
+            return;
+        }
 
-function addToHistory(expr, result) {
-  history.unshift({ expr, result });
-  if (history.length > 15) history = history.slice(0, 15);
-  renderHistory();
-}
+        history.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            historyList.appendChild(li);
+        });
+    }
 
-function calculateCurrent() {
-  if (!expression.trim()) return;
-  try {
-    const result = safeEval(expression);
-    const formatted = Number.isInteger(result) ? String(result) : String(Number(result.toFixed(8)));
-    addToHistory(expression, formatted);
-    expression = formatted;
-    setError('');
-    updateDisplay();
-  } catch (error) {
-    setError(error.message);
-  }
-}
+    function safeEval(input) {
+        const safeExpr = input
+            .replace(/x/g, '*')
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/')
+            .replace(/%/g, '/100');
 
-function handleAction(action) {
-  switch (action) {
-    case 'clear':
-      expression = '';
-      setError('');
-      updateDisplay();
-      return;
-    case 'back':
-      expression = expression.slice(0, -1);
-      updateDisplay();
-      return;
-    case 'sign':
-      if (!expression) return;
-      expression = expression.startsWith('-') ? expression.slice(1) : `-${expression}`;
-      updateDisplay();
-      return;
-    case 'equals':
-      calculateCurrent();
-      return;
-    case 'mc':
-      memoryValue = 0;
-      updateMemory();
-      return;
-    case 'mr':
-      expression += String(memoryValue);
-      updateDisplay();
-      return;
-    case 'mplus':
-      try {
-        memoryValue += Number(safeEval(expression || '0'));
-        updateMemory();
-        setError('');
-      } catch (error) {
-        setError(error.message);
-      }
-      return;
-    case 'mminus':
-      try {
-        memoryValue -= Number(safeEval(expression || '0'));
-        updateMemory();
-        setError('');
-      } catch (error) {
-        setError(error.message);
-      }
-      return;
-  }
-}
+        if (!/^[0-9+\-*/().\s]+$/.test(safeExpr)) {
+            throw new Error('Invalid input');
+        }
 
-keypad.addEventListener('click', event => {
-  const target = event.target;
-  if (!(target instanceof HTMLButtonElement)) return;
+        const result = Function('"use strict";return (' + safeExpr + ')')();
+        if (!Number.isFinite(result)) {
+            throw new Error('Math error');
+        }
 
-  const action = target.dataset.action;
-  const value = target.dataset.value;
+        return result;
+    }
 
-  if (action) {
-    handleAction(action);
-    return;
-  }
+    function evaluateCurrent() {
+        if (!expr) return;
+        try {
+            const result = safeEval(expr);
+            const formatted = String(Number(result.toFixed(8)));
+            history.unshift(expr + ' = ' + formatted);
+            if (history.length > 20) history = history.slice(0, 20);
+            renderHistory();
+            expr = formatted;
+            updateDisplay();
+            setError('');
+        } catch (error) {
+            setError(error.message);
+            updateDisplay('Error');
+            expr = '';
+        }
+    }
 
-  if (value) {
-    expression += value;
-    setError('');
-    updateDisplay();
-  }
-});
+    function toggleSign() {
+        if (!expr) return;
+        expr = expr[0] === '-' ? expr.slice(1) : '-' + expr;
+        updateDisplay();
+    }
 
-window.addEventListener('keydown', event => {
-  const key = event.key;
+    function insertParen() {
+        const opens = (expr.match(/\(/g) || []).length;
+        const closes = (expr.match(/\)/g) || []).length;
+        expr += opens > closes ? ')' : '(';
+        updateDisplay();
+    }
 
-  if (/^[0-9]$/.test(key) || ['+', '-', '*', '/', '.', '(', ')', '%'].includes(key)) {
-    expression += key;
-    setError('');
-    updateDisplay();
-    return;
-  }
+    function addMemory(delta) {
+        try {
+            const val = expr ? Number(safeEval(expr)) : 0;
+            memoryValue += delta * val;
+            updateMemory();
+            setError('');
+        } catch (error) {
+            setError(error.message);
+        }
+    }
 
-  if (key === 'Enter') {
-    event.preventDefault();
-    calculateCurrent();
-    return;
-  }
+    keypad.addEventListener('click', event => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
 
-  if (key === 'Backspace') {
-    expression = expression.slice(0, -1);
-    updateDisplay();
-    return;
-  }
+        const action = target.getAttribute('data-action');
+        const value = target.getAttribute('data-value');
 
-  if (key === 'Escape') {
-    expression = '';
-    setError('');
-    updateDisplay();
-  }
-});
+        if (action === 'clear') {
+            expr = '';
+            updateDisplay();
+            setError('');
+            return;
+        }
 
-clearHistoryBtn.addEventListener('click', () => {
-  history = [];
-  renderHistory();
-});
+        if (action === 'equals') {
+            evaluateCurrent();
+            return;
+        }
 
-themeToggleBtn.addEventListener('click', () => {
-  const current = app.getAttribute('data-theme');
-  app.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-});
+        if (action === 'sign') {
+            toggleSign();
+            return;
+        }
 
-updateDisplay();
-updateMemory();
-renderHistory();
+        if (action === 'paren') {
+            insertParen();
+            return;
+        }
+
+        if (action === 'mc') {
+            memoryValue = 0;
+            updateMemory();
+            return;
+        }
+
+        if (action === 'mr') {
+            expr += String(memoryValue);
+            updateDisplay();
+            return;
+        }
+
+        if (action === 'mplus') {
+            addMemory(1);
+            return;
+        }
+
+        if (action === 'mminus') {
+            addMemory(-1);
+            return;
+        }
+
+        if (value) {
+            expr += value;
+            updateDisplay();
+            setError('');
+        }
+    });
+
+    window.addEventListener('keydown', event => {
+        const key = event.key;
+
+        if (/^[0-9]$/.test(key) || ['+', '-', '*', '/', '.', '(', ')', '%'].includes(key)) {
+            expr += key;
+            updateDisplay();
+            setError('');
+            return;
+        }
+
+        if (key === 'Enter') {
+            event.preventDefault();
+            evaluateCurrent();
+            return;
+        }
+
+        if (key === 'Backspace') {
+            expr = expr.slice(0, -1);
+            updateDisplay();
+            return;
+        }
+
+        if (key === 'Escape') {
+            expr = '';
+            updateDisplay();
+            setError('');
+        }
+    });
+
+    clearHistoryBtn.addEventListener('click', () => {
+        history = [];
+        renderHistory();
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+        const current = app.getAttribute('data-theme');
+        app.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    });
+
+    updateDisplay('0');
+    updateMemory();
+    renderHistory();
+})();
