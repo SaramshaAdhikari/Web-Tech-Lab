@@ -1,0 +1,124 @@
+:root {
+  --bg:#0f172a;
+  --panel:#111827;
+  --panel-soft:#1f2937;
+  --text:#f9fafb;
+  --muted:#93c5fd;
+  --accent:#22c55e;
+}
+
+.app[data-theme="light"] {
+  --bg:#e5e7eb;
+  --panel:#ffffff;
+  --panel-soft:#f3f4f6;
+  --text:#111827;
+  --muted:#1d4ed8;
+  --accent:#16a34a;
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.app {
+  width:min(1020px, 95vw);
+  margin:24px auto;
+  display:grid;
+  grid-template-columns: minmax(320px, 1fr) 320px;
+  gap:16px;
+}
+
+.calculator,
+.history-panel {
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;
+  padding:16px;
+}
+
+.calc-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.calc-header h1 { font-size:1.1rem; margin:0; }
+
+.display-wrap {
+  background:var(--panel-soft);
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:14px;
+}
+
+.status-row {
+  display:flex;
+  justify-content:space-between;
+  font-size:0.85rem;
+  color:var(--muted);
+  min-height:20px;
+}
+
+.display {
+  text-align:right;
+  font-size:2rem;
+  overflow:auto;
+  white-space:nowrap;
+  padding:6px 2px;
+}
+
+.keypad {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:8px;
+}
+
+button {
+  border:none;
+  border-radius:8px;
+  padding:12px;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+.keypad button { background:#334155; color:#fff; }
+.app[data-theme="light"] .keypad button { background:#d1d5db; color:#111827; }
+.keypad .equals { background:var(--accent); color:#fff; font-weight:700; }
+
+.ghost-btn {
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.25);
+  color:var(--text);
+}
+
+.history-panel h2 { margin-top:0; }
+#historyList {
+  list-style:none;
+  padding:0;
+  margin:0 0 12px;
+  max-height:360px;
+  overflow:auto;
+}
+
+#historyList li {
+  background:var(--panel-soft);
+  border-radius:8px;
+  padding:8px;
+  margin-bottom:8px;
+  font-family:Consolas,monospace;
+  font-size:0.9rem;
+}
+
+.hint { font-size:0.82rem; opacity:0.85; }
+
+@media (max-width: 860px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+}

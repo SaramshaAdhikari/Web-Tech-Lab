@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 9 - Upgraded Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" data-theme="dark">
+    <section class="calculator">
+      <header class="calc-header">
+        <h1>Exercise 9 Calculator</h1>
+        <button id="themeToggle" type="button" class="ghost-btn">Toggle Theme</button>
+      </header>
+
+      <div class="display-wrap">
+        <div class="status-row">
+          <span id="memoryStatus">M: 0</span>
+          <span id="errorStatus"></span>
+        </div>
+        <div id="display" class="display">0</div>
+      </div>
+
+      <div class="keypad" id="keypad">
+        <button type="button" data-action="mc">MC</button>
+        <button type="button" data-action="mr">MR</button>
+        <button type="button" data-action="mplus">M+</button>
+        <button type="button" data-action="mminus">M-</button>
+
+        <button type="button" data-action="clear">C</button>
+        <button type="button" data-action="back">⌫</button>
+        <button type="button" data-value="%">%</button>
+        <button type="button" data-value="/">÷</button>
+
+        <button type="button" data-value="7">7</button>
+        <button type="button" data-value="8">8</button>
+        <button type="button" data-value="9">9</button>
+        <button type="button" data-value="*">×</button>
+
+        <button type="button" data-value="4">4</button>
+        <button type="button" data-value="5">5</button>
+        <button type="button" data-value="6">6</button>
+        <button type="button" data-value="-">-</button>
+
+        <button type="button" data-value="1">1</button>
+        <button type="button" data-value="2">2</button>
+        <button type="button" data-value="3">3</button>
+        <button type="button" data-value="+">+</button>
+
+        <button type="button" data-action="sign">+/-</button>
+        <button type="button" data-value="0">0</button>
+        <button type="button" data-value=".">.</button>
+        <button type="button" class="equals" data-action="equals">=</button>
+      </div>
+    </section>
+
+    <aside class="history-panel">
+      <h2>History</h2>
+      <ul id="historyList"></ul>
+      <button id="clearHistory" type="button" class="ghost-btn">Clear History</button>
+      <p class="hint">Keyboard supported: digits, operators, Enter, Backspace, Escape.</p>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

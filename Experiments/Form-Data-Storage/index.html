@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 10 - localStorage Data Handling</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Exercise 10: Data Storage Simulation</h1>
+    <p>Form submissions are stored in localStorage and displayed in the table below.</p>
+
+    <form id="storageForm" novalidate>
+      <div class="grid">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" name="fullName" type="text" required>
+          <small class="error" id="err-fullName"></small>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+          <small class="error" id="err-email"></small>
+        </div>
+
+        <div class="field">
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" min="1" max="120" required>
+          <small class="error" id="err-age"></small>
+        </div>
+
+        <div class="field">
+          <label for="country">Country</label>
+          <input id="country" name="country" type="text" required>
+          <small class="error" id="err-country"></small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Save Entry</button>
+        <button type="button" id="clearAll" class="secondary">Clear All Data</button>
+      </div>
+    </form>
+
+    <section class="table-section">
+      <h2>Saved Entries</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Country</th>
+            <th>Created At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="entryTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
