@@ -1,24 +1,22 @@
-/* ---- Satisfaction slider ? number sync ---- */
 const slider = document.getElementById('range');
-const satNum  = document.getElementById('satNumber');
+const satNum = document.getElementById('satNumber');
 
 slider.addEventListener('input', () => { satNum.value = slider.value; });
 satNum.addEventListener('input', () => {
   satNum.value = Math.min(10, Math.max(0, Number(satNum.value)));
-  slider.value  = satNum.value;
+  slider.value = satNum.value;
 });
 
-/* ---- Password validation ---- */
-const form          = document.getElementById('sampleForm');
+const form = document.getElementById('sampleForm');
 const passwordInput = document.getElementById('password');
-const confirmInput  = document.getElementById('confirm');
+const confirmInput = document.getElementById('confirm');
 const fieldPassword = document.getElementById('field-password');
-const fieldConfirm  = document.getElementById('field-confirm');
-const msgPassword   = document.getElementById('msg-password');
-const msgConfirm    = document.getElementById('msg-confirm');
+const fieldConfirm = document.getElementById('field-confirm');
+const msgPassword = document.getElementById('msg-password');
+const msgConfirm = document.getElementById('msg-confirm');
 
 function setFieldState(fieldEl, msgEl, isOk, message) {
-  fieldEl.classList.toggle('is-ok',    isOk  && message !== '');
+  fieldEl.classList.toggle('is-ok', isOk && message !== '');
   fieldEl.classList.toggle('is-error', !isOk && message !== '');
   msgEl.textContent = message;
 }
@@ -51,30 +49,29 @@ passwordInput.addEventListener('input', () => {
 });
 confirmInput.addEventListener('input', validateConfirm);
 
-/* ---- Column definitions ---- */
 const COLUMNS = [
-  { key: 'fullname',     label: 'Full Name'    },
-  { key: 'email',        label: 'Email'        },
-  { key: 'age',          label: 'Age'          },
-  { key: 'birthday',     label: 'Birthday'     },
-  { key: 'bio',          label: 'Bio'          },
+  { key: 'fullname', label: 'Full Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'age', label: 'Age' },
+  { key: 'birthday', label: 'Birthday' },
+  { key: 'bio', label: 'Bio' },
   { key: 'satisfaction', label: 'Satisfaction' },
-  { key: 'gender',       label: 'Gender'       },
-  { key: 'interests',    label: 'Interests'    },
-  { key: 'country',      label: 'Country'      },
+  { key: 'gender', label: 'Gender' },
+  { key: 'interests', label: 'Interests' },
+  { key: 'country', label: 'Country' }
 ];
 
 let currentRecord = null;
-const output    = document.getElementById('output');
+const output = document.getElementById('output');
 const tableBody = document.getElementById('tableBody');
+const exportButton = document.getElementById('exportCSV');
 
-/* ---- Form submission ---- */
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   if (!validatePassword() || !validateConfirm()) return;
 
-  const fd  = new FormData(form);
+  const fd = new FormData(form);
   const map = {};
   for (const [key, value] of fd.entries()) {
     if (!map[key]) map[key] = [];
@@ -99,3 +96,30 @@ form.addEventListener('submit', function (e) {
   output.style.display = 'block';
 });
 
+function escapeCSV(value) {
+  const text = String(value ?? '');
+  if (text.includes(',') || text.includes('"') || text.includes('\n') || text.includes('\r')) {
+    return '"' + text.replace(/"/g, '""') + '"';
+  }
+  return text;
+}
+
+function toCSV() {
+  if (!currentRecord) return '';
+  const header = COLUMNS.map(c => escapeCSV(c.label)).join(',');
+  const row = COLUMNS.map(c => escapeCSV(currentRecord[c.key] ?? '')).join(',');
+  return header + '\r\n' + row;
+}
+
+exportButton.addEventListener('click', function () {
+  if (!currentRecord) return;
+  const blob = new Blob([toCSV()], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'exercise7-submission.csv';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+});
