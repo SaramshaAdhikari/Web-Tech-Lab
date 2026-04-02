@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+.page-header,
+.page-footer {
+    text-align: center;
+    padding: 24px 16px;
+    background: #111827;
+    color: #f9fafb;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 1.8rem;
+}
+
+.page-header p,
+.page-footer p {
+    margin: 0;
+    color: #d1d5db;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.panel {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.panel h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.event-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #f9fafb;
+}
+
+.event-card h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+}
+
+.event-card p {
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+button {
+    cursor: pointer;
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.hover-box {
+    padding: 14px;
+    border: 1px dashed #9ca3af;
+    border-radius: 8px;
+    background: #ffffff;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.hover-box.active {
+    background: #dcfce7;
+    border-color: #22c55e;
+}
+
+.result {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #374151;
+}

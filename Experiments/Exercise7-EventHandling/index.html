@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 7 - Event Handling</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Exercise 7: Event Handling</h1>
+        <p>Independent event-handling implementation for Exercise 1 (Personal Website) and Exercise 2 (E-commerce).</p>
+    </header>
+
+    <main class="layout">
+        <section class="panel" id="portfolio-panel">
+            <h2>Exercise 1 Events: Personal Website</h2>
+
+            <div class="event-card">
+                <h3>1) Click Event</h3>
+                <p>Simulates clicking a portfolio CTA button.</p>
+                <button id="portfolio-cta" type="button">Open Portfolio CTA</button>
+                <p class="result" id="portfolio-click-result">CTA clicks: 0</p>
+            </div>
+
+            <div class="event-card">
+                <h3>2) Hover Event</h3>
+                <p>Hover over the profile card to trigger highlight and text update.</p>
+                <div class="hover-box" id="profile-hover-box">Hover on this profile box</div>
+                <p class="result" id="portfolio-hover-result">Status: waiting for hover</p>
+            </div>
+
+            <div class="event-card">
+                <h3>3) Input Event</h3>
+                <p>Live preview while typing into contact-name field.</p>
+                <label for="contact-name">Contact Name</label>
+                <input id="contact-name" name="contact-name" type="text" placeholder="Type a name">
+                <p class="result" id="portfolio-input-result">Live preview: -</p>
+            </div>
+        </section>
+
+        <section class="panel" id="ecommerce-panel">
+            <h2>Exercise 2 Events: E-commerce</h2>
+
+            <div class="event-card">
+                <h3>1) Click Event</h3>
+                <p>Click to add an item to cart count.</p>
+                <button id="add-to-cart" type="button">Add Product to Cart</button>
+                <p class="result" id="cart-result">Items in cart: 0</p>
+            </div>
+
+            <div class="event-card">
+                <h3>2) Change Event</h3>
+                <p>Choose a shipping method and update summary text.</p>
+                <label for="shipping-method">Shipping Method</label>
+                <select id="shipping-method" name="shipping-method">
+                    <option value="">Select shipping</option>
+                    <option value="Standard (5-7 days)">Standard (5-7 days)</option>
+                    <option value="Express (2-3 days)">Express (2-3 days)</option>
+                    <option value="Same Day">Same Day</option>
+                </select>
+                <p class="result" id="shipping-result">Selected shipping: not selected</p>
+            </div>
+
+            <div class="event-card">
+                <h3>3) Input and Double-Click Events</h3>
+                <p>Type a coupon to trigger input event. Double-click to clear instantly.</p>
+                <label for="coupon">Coupon</label>
+                <input id="coupon" name="coupon" type="text" placeholder="SAVE10">
+                <p class="result" id="coupon-result">Coupon state: waiting</p>
+                <button id="clear-coupon" type="button">Double-click to clear coupon</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p>Exercise 7 kept separate from Exercise 6 (Form Validation).</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
