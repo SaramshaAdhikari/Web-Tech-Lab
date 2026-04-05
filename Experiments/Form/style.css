@@ -2,7 +2,9 @@
 
 body{
   font-family:'Segoe UI',system-ui,Roboto,Arial,sans-serif;
-  background:#eef1f5;
+  background:
+    linear-gradient(rgba(10, 14, 20, 0.48), rgba(10, 14, 20, 0.58)),
+    url('dune.jpg') center/cover fixed no-repeat;
   color:#1e293b;
   min-height:100vh;
   display:flex;
@@ -20,14 +22,18 @@ h1{
   font-weight:700;
   margin-bottom:24px;
   letter-spacing:-.02em;
-  color:#0f172a;
+  color:#f8fafc;
+  text-shadow:0 2px 14px rgba(0,0,0,.45);
 }
 
 form{
-  background:#f0e6d3;
+  background:rgba(255,255,255,.76);
+  border:1px solid rgba(255,255,255,.42);
   padding:32px;
   border-radius:14px;
-  box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  box-shadow:0 16px 40px rgba(0,0,0,.32),0 2px 8px rgba(0,0,0,.16);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
 }
 
 .field{margin-bottom:20px}
@@ -204,7 +210,10 @@ button:active{transform:scale(.97)}
 .table-wrap{
   overflow-x:auto;
   border-radius:12px;
-  box-shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 12px 30px rgba(0,0,0,.24);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
 }
 
 #outputTable{

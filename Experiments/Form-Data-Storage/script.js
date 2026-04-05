@@ -1,5 +1,3 @@
-const FORM_STORAGE_KEY = 'form-data-storage-entries';
-
 const slider = document.getElementById('range');
 const satNum = document.getElementById('satNumber');
 
@@ -16,21 +14,6 @@ const fieldPassword = document.getElementById('field-password');
 const fieldConfirm = document.getElementById('field-confirm');
 const msgPassword = document.getElementById('msg-password');
 const msgConfirm = document.getElementById('msg-confirm');
-const clearAllButton = document.getElementById('clearAll');
-const output = document.getElementById('output');
-const tableBody = document.getElementById('tableBody');
-
-const COLUMNS = [
-  { key: 'fullname', label: 'Full Name' },
-  { key: 'email', label: 'Email' },
-  { key: 'age', label: 'Age' },
-  { key: 'birthday', label: 'Birthday' },
-  { key: 'bio', label: 'Bio' },
-  { key: 'satisfaction', label: 'Satisfaction' },
-  { key: 'gender', label: 'Gender' },
-  { key: 'interests', label: 'Interests' },
-  { key: 'country', label: 'Country' }
-];
 
 function setFieldState(fieldEl, msgEl, isOk, message) {
   fieldEl.classList.toggle('is-ok', isOk && message !== '');
@@ -64,102 +47,136 @@ passwordInput.addEventListener('input', () => {
   validatePassword();
   if (confirmInput.value !== '') validateConfirm();
 });
-
 confirmInput.addEventListener('input', validateConfirm);
 
-function getEntries() {
-  try {
-    const raw = localStorage.getItem(FORM_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (_error) {
-    return [];
-  }
-}
+const COLUMNS = [
+  { key: 'fullname', label: 'Full Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'age', label: 'Age' },
+  { key: 'birthday', label: 'Birthday' },
+  { key: 'bio', label: 'Bio' },
+  { key: 'satisfaction', label: 'Satisfaction' },
+  { key: 'gender', label: 'Gender' },
+  { key: 'interests', label: 'Interests' },
+  { key: 'country', label: 'Country' }
+];
 
-function saveEntries(entries) {
-  localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(entries));
+let records = [];
+const output = document.getElementById('output');
+const tableBody = document.getElementById('tableBody');
+const exportButton = document.getElementById('exportCSV');
+
+function formDataToRecord(formData) {
+  const map = {};
+  for (const [key, value] of formData.entries()) {
+    if (!map[key]) map[key] = [];
+    map[key].push(value);
+  }
+
+  const record = {};
+  COLUMNS.forEach(col => {
+    const vals = map[col.key];
+    record[col.key] = vals ? vals.join(', ') : '';
+  });
+
+  return record;
 }
 
 function renderTable() {
-  const entries = getEntries();
   tableBody.innerHTML = '';
 
-  if (entries.length === 0) {
+  if (!records.length) {
     output.style.display = 'none';
     return;
   }
 
-  entries.forEach((entry, index) => {
+  records.forEach(record => {
     const tr = document.createElement('tr');
-
     COLUMNS.forEach(col => {
       const td = document.createElement('td');
-      td.textContent = entry[col.key] ?? '';
+      td.textContent = record[col.key] ?? '';
       tr.appendChild(td);
     });
-
-    const createdAtTd = document.createElement('td');
-    createdAtTd.textContent = entry.createdAt;
-    tr.appendChild(createdAtTd);
-
-    const actionTd = document.createElement('td');
-    const deleteButton = document.createElement('button');
-    deleteButton.type = 'button';
-    deleteButton.className = 'btn-danger btn-sm';
-    deleteButton.textContent = 'Delete';
-    deleteButton.dataset.index = String(index);
-    actionTd.appendChild(deleteButton);
-    tr.appendChild(actionTd);
-
     tableBody.appendChild(tr);
   });
 
   output.style.display = 'block';
 }
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
+async function loadRecords() {
+  try {
+    const response = await fetch('fetch.php', {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+
+    const data = await response.json();
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || 'Unable to fetch records.');
+    }
+
+    records = Array.isArray(data.records) ? data.records : [];
+    renderTable();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
 
   if (!validatePassword() || !validateConfirm()) return;
 
-  const fd = new FormData(form);
-  const map = {};
-  for (const [key, value] of fd.entries()) {
-    if (!map[key]) map[key] = [];
-    map[key].push(value);
+  const formData = new FormData(form);
+  const payload = formDataToRecord(formData);
+
+  try {
+    const response = await fetch('save.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || 'Unable to save record.');
+    }
+
+    await loadRecords();
+  } catch (error) {
+    console.error(error);
   }
-
-  const entry = {
-    createdAt: new Date().toLocaleString()
-  };
-
-  COLUMNS.forEach(col => {
-    const vals = map[col.key];
-    entry[col.key] = vals ? vals.join(', ') : '';
-  });
-
-  const entries = getEntries();
-  entries.push(entry);
-  saveEntries(entries);
-  renderTable();
 });
 
-tableBody.addEventListener('click', event => {
-  const target = event.target;
-  if (!(target instanceof HTMLButtonElement)) return;
+function escapeCSV(value) {
+  const text = String(value ?? '');
+  if (text.includes(',') || text.includes('"') || text.includes('\n') || text.includes('\r')) {
+    return '"' + text.replace(/"/g, '""') + '"';
+  }
+  return text;
+}
 
-  const idx = Number(target.dataset.index);
-  if (Number.isNaN(idx)) return;
+function toCSV() {
+  if (!records.length) return '';
+  const header = COLUMNS.map(c => escapeCSV(c.label)).join(',');
+  const rows = records.map(record => COLUMNS.map(c => escapeCSV(record[c.key] ?? '')).join(','));
+  return header + '\r\n' + rows.join('\r\n');
+}
 
-  const entries = getEntries();
-  entries.splice(idx, 1);
-  saveEntries(entries);
-  renderTable();
+exportButton.addEventListener('click', function () {
+  if (!records.length) return;
+  const blob = new Blob([toCSV()], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'exercise10-db-export.csv';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 });
 
-clearAllButton.addEventListener('click', () => {
-  localStorage.removeItem(FORM_STORAGE_KEY);
-  renderTable();
-});
-
-renderTable();
+loadRecords();

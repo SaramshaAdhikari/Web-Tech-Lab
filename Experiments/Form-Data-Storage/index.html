@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Form Data Storage</title>
+  <title>Exercise 10 - Form Data Storage</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="wrapper">
-    <h1>Form Data Storage</h1>
+    <h1>Exercise 10</h1>
 
-    <form id="sampleForm" novalidate>
+    <form id="sampleForm">
       <div class="field">
         <label for="fullname">Full Name</label>
         <input id="fullname" name="fullname" type="text" placeholder="Full Name" required />
@@ -96,7 +96,7 @@
 
     <div id="output" style="display:none">
       <div class="table-btns">
-        <button type="button" id="clearAll" class="btn-secondary btn-sm">Clear All Data</button>
+        <button type="button" id="exportCSV" class="btn-secondary btn-sm">Export to CSV</button>
       </div>
       <div class="table-wrap">
         <table id="outputTable">
@@ -111,8 +111,6 @@
               <th>Gender</th>
               <th>Interests</th>
               <th>Country</th>
-              <th>Created At</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>
