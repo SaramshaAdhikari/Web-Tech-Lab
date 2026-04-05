@@ -1,20 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to PHP</title>
-  <style>
-    body{font-family:Arial,sans-serif;background:#f3f4f6;color:#111827;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
-    .box{background:#fff;padding:24px;border:1px solid #e5e7eb;border-radius:10px;max-width:520px}
-    h1{margin-top:0}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 8 - Introduction to PHP</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f1117;
+            color: #e4e4e7;
+            min-height: 100vh;
+            padding: 24px 16px;
+        }
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28), 0 0 30px rgba(74, 156, 110, 0.06);
+            margin-bottom: 18px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            color: #d4f3dd;
+        }
+        h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #a5d6a7;
+        }
+        p, li {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #d4d4d8;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        code {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 1px 6px;
+            color: #f0f9ff;
+        }
+        pre {
+            margin-top: 8px;
+            padding: 14px;
+            border-radius: 10px;
+            overflow-x: auto;
+            background: #0b1220;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #dbeafe;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .section {
+            margin-top: 14px;
+        }
+        .screenshot {
+            margin-top: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .screenshot img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+        .caption {
+            padding: 8px 10px;
+            font-size: 0.84rem;
+            color: #9ca3af;
+        }
+        .divider {
+            margin: 14px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Introduction to PHP</h1>
-    <p>This is a simple introduction to PHP.</p>
-    <!-- PHP-download and experiment -->
-  </div>
+    <main class="page">
+        <section class="card">
+            <h1>Experiment 8: Introduction to PHP</h1>
+            <p>Converted from Markdown to HTML so this experiment opens as a proper webpage on GitHub Pages.</p>
+        </section>
+
+        <section class="card">
+            <h2>Objective</h2>
+            <p>To install PHP using XAMPP and understand basic PHP concepts such as variables, output functions and executing through a local server.</p>
+        </section>
+
+        <section class="card">
+            <h2>Step 1: What is PHP?</h2>
+            <p>PHP (Hypertext Preprocessor) is a server-side scripting language used to create dynamic web pages. Unlike JavaScript, which runs in the browser, PHP runs on the server and sends the output to the browser.</p>
+        </section>
+
+        <section class="card">
+            <h2>Step 2: Installing XAMPP</h2>
+            <ul>
+                <li>Downloaded and installed XAMPP.</li>
+                <li>Opened XAMPP Control Panel.</li>
+                <li>Started the <strong>Apache</strong> server.</li>
+            </ul>
+            <div class="screenshot">
+                <img src="screenshots/xampp-running.png" alt="XAMPP Running">
+                <div class="caption">XAMPP Running</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Step 3: Running First PHP Program</h2>
+            <p>Created a file named <code>hello.php</code> inside the XAMPP <code>htdocs</code> folder.</p>
+            <h3>Code</h3>
+            <pre>&lt;?php
+echo "Hello World";
+?&gt;</pre>
+            <p>Accessed in browser using:</p>
+            <pre>http://localhost/hello.php</pre>
+            <div class="screenshot">
+                <img src="screenshots/hello-world.png" alt="Hello World Output">
+                <div class="caption">Hello World Output</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Step 4: Using Variables in PHP</h2>
+            <h3>Code</h3>
+            <pre>&lt;?php
+$name = "John";
+$age = 20;
+
+echo "Name: $name &lt;br&gt;";
+echo "Age: $age";
+?&gt;</pre>
+            <div class="screenshot">
+                <img src="screenshots/variables.png" alt="Variables Output">
+                <div class="caption">Variables Output</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Step 5: Output Functions</h2>
+            <h3>Code</h3>
+            <pre>&lt;?php
+print "Hello using print &lt;br&gt;";
+var_dump(10);
+?&gt;</pre>
+            <h3>Explanation</h3>
+            <ul>
+                <li><code>echo</code> outputs text</li>
+                <li><code>print</code> is similar to echo but returns a value</li>
+                <li><code>var_dump()</code> displays data type and value</li>
+            </ul>
+            <div class="screenshot">
+                <img src="screenshots/output.png" alt="Output Functions">
+                <div class="caption">Output Functions</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Step 6: PHP Request-Response Cycle</h2>
+            <p>When a PHP file is accessed:</p>
+            <ol>
+                <li>Browser sends a request to the server.</li>
+                <li>Server executes the PHP code.</li>
+                <li>Output is sent back to the browser.</li>
+            </ol>
+            <p>Example URL:</p>
+            <pre>http://localhost/request.php</pre>
+            <div class="screenshot">
+                <img src="screenshots/request.png" alt="Browser Execution">
+                <div class="caption">Browser Execution</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Conclusion</h2>
+            <ul>
+                <li>Successfully installed and ran PHP using XAMPP.</li>
+                <li>Learned basic PHP syntax and execution.</li>
+                <li>Understood variables and output functions.</li>
+                <li>Verified execution using localhost.</li>
+            </ul>
+        </section>
+    </main>
 </body>
 </html>
