@@ -8,12 +8,41 @@ satNum.addEventListener('input', () => {
 });
 
 const form = document.getElementById('sampleForm');
+const submitButton = document.getElementById('submitBtn');
+const fetchButton = document.getElementById('fetchData');
+const formAlert = document.getElementById('formAlert');
+const dataHint = document.getElementById('dataHint');
 const passwordInput = document.getElementById('password');
 const confirmInput = document.getElementById('confirm');
 const fieldPassword = document.getElementById('field-password');
 const fieldConfirm = document.getElementById('field-confirm');
 const msgPassword = document.getElementById('msg-password');
 const msgConfirm = document.getElementById('msg-confirm');
+let alertTimer = null;
+
+function showAlert(type, message, autoHideMs = 0) {
+  if (alertTimer) {
+    clearTimeout(alertTimer);
+    alertTimer = null;
+  }
+
+  formAlert.textContent = message;
+  formAlert.classList.remove('is-success', 'is-error');
+  formAlert.classList.add(type === 'success' ? 'is-success' : 'is-error');
+  formAlert.hidden = false;
+
+  if (autoHideMs > 0) {
+    alertTimer = setTimeout(() => {
+      formAlert.hidden = true;
+      alertTimer = null;
+    }, autoHideMs);
+  }
+}
+
+function resetValidationState() {
+  setFieldState(fieldPassword, msgPassword, false, '');
+  setFieldState(fieldConfirm, msgConfirm, false, '');
+}
 
 function setFieldState(fieldEl, msgEl, isOk, message) {
   fieldEl.classList.toggle('is-ok', isOk && message !== '');
@@ -103,7 +132,16 @@ function renderTable() {
   output.style.display = 'block';
 }
 
-async function loadData() {
+async function loadData(options = {}) {
+  const withLoading = Boolean(options.withLoading);
+  const showErrorAlert = Boolean(options.showErrorAlert);
+  const originalFetchText = fetchButton.textContent;
+
+  if (withLoading) {
+    fetchButton.disabled = true;
+    fetchButton.textContent = 'Loading...';
+  }
+
   try {
     const response = await fetch('fetch.php', {
       method: 'GET',
@@ -122,8 +160,18 @@ async function loadData() {
       ? data
       : (Array.isArray(data.records) ? data.records : []);
     renderTable();
+    dataHint.textContent = 'Showing latest submissions (' + records.length + ')';
   } catch (error) {
     console.error(error);
+    dataHint.textContent = 'Unable to load submissions right now.';
+    if (showErrorAlert) {
+      showAlert('error', error.message || 'Unable to fetch submitted data.');
+    }
+  } finally {
+    if (withLoading) {
+      fetchButton.disabled = false;
+      fetchButton.textContent = originalFetchText;
+    }
   }
 }
 
@@ -134,6 +182,9 @@ form.addEventListener('submit', async function (e) {
 
   const formData = new FormData(form);
   const payload = formDataToPayload(formData);
+  const originalSubmitText = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Submitting...';
 
   try {
     const response = await fetch('save.php', {
@@ -150,10 +201,29 @@ form.addEventListener('submit', async function (e) {
       throw new Error(data.message || 'Unable to save record.');
     }
 
+    showAlert('success', 'Record saved successfully.', 3000);
+    form.reset();
+    slider.value = satNum.value;
+    resetValidationState();
     await loadData();
   } catch (error) {
     console.error(error);
+    showAlert('error', error.message || 'Unable to save record.');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalSubmitText;
   }
+});
+
+fetchButton.addEventListener('click', function () {
+  loadData({ withLoading: true, showErrorAlert: true });
+});
+
+form.addEventListener('reset', function () {
+  resetValidationState();
+  setTimeout(() => {
+    slider.value = satNum.value;
+  }, 0);
 });
 
 function escapeCSV(value) {
@@ -184,4 +254,6 @@ exportButton.addEventListener('click', function () {
   URL.revokeObjectURL(url);
 });
 
-window.addEventListener('DOMContentLoaded', loadData);
+window.addEventListener('DOMContentLoaded', function () {
+  loadData();
+});

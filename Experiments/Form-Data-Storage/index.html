@@ -9,6 +9,7 @@
 <body>
   <div class="wrapper">
     <h1>Form Data Storage</h1>
+    <div id="formAlert" class="alert" role="status" aria-live="polite" hidden></div>
 
     <form id="sampleForm">
       <div class="field">
@@ -89,10 +90,15 @@
       </div>
 
       <div class="btn-row">
-        <button type="submit" class="btn-primary">Submit</button>
+        <button type="submit" id="submitBtn" class="btn-primary">Submit</button>
         <button type="reset" class="btn-secondary">Reset</button>
       </div>
     </form>
+
+    <div class="data-actions">
+      <button type="button" id="fetchData" class="btn-secondary">Fetch Submitted Data</button>
+      <span id="dataHint" class="data-hint">Showing latest submissions</span>
+    </div>
 
     <div id="output" style="display:none">
       <div class="table-btns">

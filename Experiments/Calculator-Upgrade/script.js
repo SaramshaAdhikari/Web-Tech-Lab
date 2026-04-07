@@ -1,4 +1,5 @@
 (function () {
+    const root = document.documentElement;
     const app = document.getElementById('app');
     const keypad = document.getElementById('keypad');
     const historyList = document.getElementById('historyList');
@@ -11,11 +12,55 @@
     const modeTabs = Array.from(document.querySelectorAll('.mode-tab[data-mode]'));
     const modePanels = Array.from(document.querySelectorAll('.mode-panel'));
     const display = document.getElementById('display');
+    const THEME_STORAGE_KEY = 'calculator-upgrade-theme';
+    const HISTORY_STORAGE_KEY = 'calculator-upgrade-history';
 
     let expr = '';
     let memoryValue = 0;
     let history = [];
     let angleMode = 'deg';
+
+    function readLocalHistory() {
+        try {
+            const stored = localStorage.getItem(HISTORY_STORAGE_KEY);
+            if (!stored) return [];
+            const parsed = JSON.parse(stored);
+            if (!Array.isArray(parsed)) return [];
+            return parsed.map(item => String(item)).filter(Boolean).slice(0, 20);
+        } catch (_error) {
+            return [];
+        }
+    }
+
+    function writeLocalHistory() {
+        try {
+            localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 20)));
+        } catch (_error) {
+            // Ignore storage failures so calculator actions continue.
+        }
+    }
+
+    function setTheme(theme) {
+        const resolved = theme === 'light' ? 'light' : 'dark';
+        root.setAttribute('data-theme', resolved);
+        try {
+            localStorage.setItem(THEME_STORAGE_KEY, resolved);
+        } catch (_error) {
+            // Ignore storage errors.
+        }
+    }
+
+    function initTheme() {
+        let storedTheme = null;
+        try {
+            storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        } catch (_error) {
+            storedTheme = null;
+        }
+
+        const initialTheme = storedTheme || root.getAttribute('data-theme') || 'dark';
+        setTheme(initialTheme);
+    }
 
     const OP_INFO = {
         '+': { precedence: 2, associativity: 'left', args: 2 },
@@ -399,9 +444,10 @@
                 const result = String(item.result ?? '').trim();
                 return expression && result ? expression + ' = ' + result : String(item);
             }).filter(Boolean);
+            writeLocalHistory();
             renderHistory();
         } catch (_error) {
-            history = [];
+            history = readLocalHistory();
             renderHistory();
         }
     }
@@ -481,6 +527,7 @@
             history.unshift(expression + ' = ' + formatted);
             if (history.length > 20) history = history.slice(0, 20);
             renderHistory();
+            writeLocalHistory();
             setExpressionLine(expression);
             expr = formatted;
             updateDisplay();
@@ -619,15 +666,17 @@
 
     clearHistoryBtn.addEventListener('click', () => {
         history = [];
+        writeLocalHistory();
         renderHistory();
         tryClearHistoryBackend();
     });
 
     themeToggleBtn.addEventListener('click', () => {
-        const current = app.getAttribute('data-theme');
-        app.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        const current = root.getAttribute('data-theme') || 'dark';
+        setTheme(current === 'dark' ? 'light' : 'dark');
     });
 
+    initTheme();
     updateDisplay('0');
     setExpressionLine('Ready');
     updateMemory();

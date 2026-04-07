@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html data-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class='wrap' id="app" data-theme="dark" data-angle="deg">
+    <div class='wrap' id="app" data-angle="deg">
         <div class='calculator'>
             <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">◐</button>
             <div class='screen'>
                 <div class="meta-row"><span id="memoryStatus">M: 0</span><span id="errorStatus"></span></div>
-                <div id="expressionLine" class="expression-line">Ready</div>
-                <div id="display">0</div>
+                <div class="screen-main">
+                    <div id="expressionLine" class="expression-line">Ready</div>
+                    <div id="display">0</div>
+                </div>
             </div>
 
             <div class="mode-bar">
