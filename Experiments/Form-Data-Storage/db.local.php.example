@@ -1,0 +1,7 @@
+<?php
+return [
+    'host' => 'sqlXXX.infinityfree.com',
+    'user' => 'if0_xxxxxxxx',
+    'pass' => 'replace_with_password',
+    'name' => 'if0_xxxxxxxx_form'
+];

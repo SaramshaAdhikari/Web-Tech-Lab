@@ -49,37 +49,37 @@ passwordInput.addEventListener('input', () => {
 });
 confirmInput.addEventListener('input', validateConfirm);
 
-const COLUMNS = [
+const DISPLAY_COLUMNS = [
   { key: 'fullname', label: 'Full Name' },
   { key: 'email', label: 'Email' },
   { key: 'age', label: 'Age' },
-  { key: 'birthday', label: 'Birthday' },
-  { key: 'bio', label: 'Bio' },
-  { key: 'satisfaction', label: 'Satisfaction' },
-  { key: 'gender', label: 'Gender' },
-  { key: 'interests', label: 'Interests' },
-  { key: 'country', label: 'Country' }
+  { key: 'country', label: 'Country' },
+  { key: 'created_at', label: 'Created At' }
 ];
 
 let records = [];
 const output = document.getElementById('output');
-const tableBody = document.getElementById('tableBody');
+const tableBody = document.querySelector('#dataTable tbody');
 const exportButton = document.getElementById('exportCSV');
 
-function formDataToRecord(formData) {
+function formDataToPayload(formData) {
   const map = {};
   for (const [key, value] of formData.entries()) {
     if (!map[key]) map[key] = [];
     map[key].push(value);
   }
 
-  const record = {};
-  COLUMNS.forEach(col => {
-    const vals = map[col.key];
-    record[col.key] = vals ? vals.join(', ') : '';
-  });
-
-  return record;
+  return {
+    fullname: (map.fullname || [''])[0],
+    email: (map.email || [''])[0],
+    age: (map.age || [''])[0],
+    birthday: (map.birthday || [''])[0],
+    bio: (map.bio || [''])[0],
+    satisfaction: (map.satisfaction || [''])[0],
+    gender: (map.gender || [''])[0],
+    interests: (map.interests || []).join(', '),
+    country: (map.country || [''])[0]
+  };
 }
 
 function renderTable() {
@@ -92,7 +92,7 @@ function renderTable() {
 
   records.forEach(record => {
     const tr = document.createElement('tr');
-    COLUMNS.forEach(col => {
+    DISPLAY_COLUMNS.forEach(col => {
       const td = document.createElement('td');
       td.textContent = record[col.key] ?? '';
       tr.appendChild(td);
@@ -103,19 +103,24 @@ function renderTable() {
   output.style.display = 'block';
 }
 
-async function loadRecords() {
+async function loadData() {
   try {
     const response = await fetch('fetch.php', {
       method: 'GET',
       headers: { 'Accept': 'application/json' }
     });
 
+    console.log('fetch.php status:', response.status);
     const data = await response.json();
-    if (!response.ok || !data.success) {
-      throw new Error(data.message || 'Unable to fetch records.');
+    console.log('fetch.php response:', data);
+
+    if (!response.ok) {
+      throw new Error('Unable to fetch records.');
     }
 
-    records = Array.isArray(data.records) ? data.records : [];
+    records = Array.isArray(data)
+      ? data
+      : (Array.isArray(data.records) ? data.records : []);
     renderTable();
   } catch (error) {
     console.error(error);
@@ -128,7 +133,7 @@ form.addEventListener('submit', async function (e) {
   if (!validatePassword() || !validateConfirm()) return;
 
   const formData = new FormData(form);
-  const payload = formDataToRecord(formData);
+  const payload = formDataToPayload(formData);
 
   try {
     const response = await fetch('save.php', {
@@ -145,7 +150,7 @@ form.addEventListener('submit', async function (e) {
       throw new Error(data.message || 'Unable to save record.');
     }
 
-    await loadRecords();
+    await loadData();
   } catch (error) {
     console.error(error);
   }
@@ -161,8 +166,8 @@ function escapeCSV(value) {
 
 function toCSV() {
   if (!records.length) return '';
-  const header = COLUMNS.map(c => escapeCSV(c.label)).join(',');
-  const rows = records.map(record => COLUMNS.map(c => escapeCSV(record[c.key] ?? '')).join(','));
+  const header = DISPLAY_COLUMNS.map(c => escapeCSV(c.label)).join(',');
+  const rows = records.map(record => DISPLAY_COLUMNS.map(c => escapeCSV(record[c.key] ?? '')).join(','));
   return header + '\r\n' + rows.join('\r\n');
 }
 
@@ -179,4 +184,4 @@ exportButton.addEventListener('click', function () {
   URL.revokeObjectURL(url);
 });
 
-loadRecords();
+window.addEventListener('DOMContentLoaded', loadData);

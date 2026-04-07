@@ -7,39 +7,114 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class='wrap' id="app" data-theme="dark">
+    <div class='wrap' id="app" data-theme="dark" data-angle="deg">
         <div class='calculator'>
             <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">◐</button>
             <div class='screen'>
                 <div class="meta-row"><span id="memoryStatus">M: 0</span><span id="errorStatus"></span></div>
+                <div id="expressionLine" class="expression-line">Ready</div>
+                <div id="display">0</div>
             </div>
-            <div class='buttons' id="keypad">
-                <div class='button op mem' data-action="mc">MC</div>
-                <div class='button op mem' data-action="mr">MR</div>
-                <div class='button op mem' data-action="mplus">M+</div>
-                <div class='button op mem' data-action="mminus">M-</div>
-                <div class='button clear' data-action="clear">C</div>
-                <div class='button op' data-action="paren">()</div>
-                <div class='button op' data-value="%">%</div>
-                <div class='button op' data-value="/">&divide;</div>
-                <div class='button' data-value="7">7</div>
-                <div class='button' data-value="8">8</div>
-                <div class='button' data-value="9">9</div>
-                <div class='button op' data-value="*">&times;</div>
-                <div class='button' data-value="4">4</div>
-                <div class='button' data-value="5">5</div>
-                <div class='button' data-value="6">6</div>
-                <div class='button op' data-value="-">-</div>
-                <div class='button' data-value="1">1</div>
-                <div class='button' data-value="2">2</div>
-                <div class='button' data-value="3">3</div>
-                <div class='button op' data-value="+">+</div>
-                <div class='button' data-action="sign">+/-</div>
-                <div class='button' data-value="0">0</div>
-                <div class='button' data-value=".">.</div>
-                <div class='button equals wide' data-action="equals">=</div>
+
+            <div class="mode-bar">
+                <button type="button" class="mode-tab is-active" data-mode="main">Main</button>
+                <button type="button" class="mode-tab" data-mode="abc">ABC</button>
+                <button type="button" class="mode-tab" data-mode="func">Func</button>
+                <button type="button" id="angleToggle" class="mode-tab angle-tab">DEG</button>
+            </div>
+
+            <div class='buttons-panel' id="keypad">
+                <div class='buttons mode-panel is-active' data-panel="main">
+                    <button type='button' class='button op mem' data-action="mc">MC</button>
+                    <button type='button' class='button op mem' data-action="mr">MR</button>
+                    <button type='button' class='button op mem' data-action="mplus">M+</button>
+                    <button type='button' class='button op mem' data-action="mminus">M-</button>
+                    <button type='button' class='button clear' data-action="clear">C</button>
+                    <button type='button' class='button clear' data-action="backspace">⌫</button>
+                    <button type='button' class='button op' data-value="%">%</button>
+                    <button type='button' class='button op' data-value="/">&divide;</button>
+                    <button type='button' class='button' data-value="7">7</button>
+                    <button type='button' class='button' data-value="8">8</button>
+                    <button type='button' class='button' data-value="9">9</button>
+                    <button type='button' class='button op' data-value="*">&times;</button>
+                    <button type='button' class='button' data-value="4">4</button>
+                    <button type='button' class='button' data-value="5">5</button>
+                    <button type='button' class='button' data-value="6">6</button>
+                    <button type='button' class='button op' data-value="-">-</button>
+                    <button type='button' class='button' data-value="1">1</button>
+                    <button type='button' class='button' data-value="2">2</button>
+                    <button type='button' class='button' data-value="3">3</button>
+                    <button type='button' class='button op' data-value="+">+</button>
+                    <button type='button' class='button op' data-value="(">(</button>
+                    <button type='button' class='button' data-value="0">0</button>
+                    <button type='button' class='button op' data-value=")">)</button>
+                    <button type='button' class='button' data-value=".">.</button>
+                    <button type='button' class='button equals wide' data-action="equals">=</button>
+                </div>
+
+                <div class='buttons mode-panel' data-panel="abc">
+                    <button type='button' class='button' data-value="a">a</button>
+                    <button type='button' class='button' data-value="b">b</button>
+                    <button type='button' class='button' data-value="c">c</button>
+                    <button type='button' class='button' data-value="d">d</button>
+                    <button type='button' class='button' data-value="e">e</button>
+                    <button type='button' class='button' data-value="f">f</button>
+                    <button type='button' class='button' data-value="g">g</button>
+                    <button type='button' class='button' data-value="h">h</button>
+                    <button type='button' class='button' data-value="i">i</button>
+                    <button type='button' class='button' data-value="j">j</button>
+                    <button type='button' class='button' data-value="k">k</button>
+                    <button type='button' class='button' data-value="l">l</button>
+                    <button type='button' class='button' data-value="m">m</button>
+                    <button type='button' class='button' data-value="n">n</button>
+                    <button type='button' class='button' data-value="o">o</button>
+                    <button type='button' class='button' data-value="p">p</button>
+                    <button type='button' class='button' data-value="q">q</button>
+                    <button type='button' class='button' data-value="r">r</button>
+                    <button type='button' class='button' data-value="s">s</button>
+                    <button type='button' class='button' data-value="t">t</button>
+                    <button type='button' class='button' data-value="u">u</button>
+                    <button type='button' class='button' data-value="v">v</button>
+                    <button type='button' class='button' data-value="w">w</button>
+                    <button type='button' class='button' data-value="x">x</button>
+                    <button type='button' class='button' data-value="y">y</button>
+                    <button type='button' class='button' data-value="z">z</button>
+                    <button type='button' class='button clear wide' data-action="backspace">⌫</button>
+                    <button type='button' class='button equals wide' data-action="equals">=</button>
+                </div>
+
+                <div class='buttons mode-panel' data-panel="func">
+                    <button type='button' class='button op' data-insert="sin(">sin</button>
+                    <button type='button' class='button op' data-insert="cos(">cos</button>
+                    <button type='button' class='button op' data-insert="tan(">tan</button>
+                    <button type='button' class='button op' data-insert="log(">log</button>
+                    <button type='button' class='button op' data-insert="asin(">sin⁻¹</button>
+                    <button type='button' class='button op' data-insert="acos(">cos⁻¹</button>
+                    <button type='button' class='button op' data-insert="atan(">tan⁻¹</button>
+                    <button type='button' class='button op' data-insert="ln(">ln</button>
+                    <button type='button' class='button op' data-insert="sqrt(">√x</button>
+                    <button type='button' class='button op' data-value="^">xⁿ</button>
+                    <button type='button' class='button op' data-insert="exp(">eˣ</button>
+                    <button type='button' class='button op' data-value="!">!</button>
+                    <button type='button' class='button op' data-value="pi">π</button>
+                    <button type='button' class='button op' data-value="e">e</button>
+                    <button type='button' class='button op' data-insert="abs(">abs</button>
+                    <button type='button' class='button op' data-insert="round(">round</button>
+                    <button type='button' class='button op' data-value="nCr">nCr</button>
+                    <button type='button' class='button op' data-value="nPr">nPr</button>
+                    <button type='button' class='button clear' data-action="clear">C</button>
+                    <button type='button' class='button clear' data-action="backspace">⌫</button>
+                    <button type='button' class='button op' data-value="(">(</button>
+                    <button type='button' class='button op' data-value=")">)</button>
+                    <button type='button' class='button op' data-value="/">÷</button>
+                    <button type='button' class='button op' data-value="*">×</button>
+                    <button type='button' class='button op' data-value="-">-</button>
+                    <button type='button' class='button op' data-value="+">+</button>
+                    <button type='button' class='button equals wide' data-action="equals">=</button>
+                </div>
             </div>
         </div>
+
         <div class="history-panel">
             <div class="history-head">
                 <h2>History</h2>
@@ -48,6 +123,7 @@
             <ul id="historyList"></ul>
         </div>
     </div>
+
     <script src="script.js" defer></script>
 </body>
 </html>
