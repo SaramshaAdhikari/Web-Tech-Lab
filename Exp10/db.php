@@ -16,7 +16,7 @@ if (is_file($localConfigPath)) {
 }
 
 if ($config['host'] === '' || $config['user'] === '' || $config['pass'] === '' || $config['name'] === '') {
-    throw new Exception('Missing database configuration. Use environment variables or create Experiments/Form-Data-Storage/db.local.php from Experiments/Form-Data-Storage/db.local.php.example.');
+    throw new Exception('Missing database configuration. Use environment variables or create Exp10/db.local.php from Exp10/db.local.php.example.');
 }
 
 define('DB_HOST', $config['host']);

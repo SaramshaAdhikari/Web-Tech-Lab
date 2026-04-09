@@ -1,0 +1,10 @@
+# Local database credentials (never commit)
+**/db.local.php
+
+# Hosting-only credential files (keep out of GitHub)
+form/db.php
+calculator/db.php
+
+# Deployment folders containing private server config
+form_deploy/
+calculator_deploy/
